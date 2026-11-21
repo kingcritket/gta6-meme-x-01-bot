@@ -10,7 +10,7 @@
 // Local check (the grader's /bot and /output swapped for local paths):
 //   mkdir -p out && MAKEFUN_BOT_DIR=. MAKEFUN_OUTPUT_DIR=out node main.ts
 
-import { copyFileSync, mkdirSync } from 'node:fs';
+import { copyFileSync, mkdirSync, readFileSync, renameSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 const botDir = process.env.MAKEFUN_BOT_DIR ?? '/bot';
@@ -21,9 +21,42 @@ mkdirSync(outputDir, { recursive: true });
 const source = join(botDir, 'POST.json');
 const target = join(outputDir, 'POST.json');
 
+// Validate before copying: the gate reads whatever lands in /output, so a
+// malformed POST.json should fail loudly here instead of silently scoring
+// zero. The file must be JSON carrying an "url" that points at one concrete
+// X (or Twitter) status — not a profile page, not a placeholder.
+let post: { url?: unknown };
 try {
-  copyFileSync(source, target);
+  post = JSON.parse(readFileSync(source, 'utf8')) as { url?: unknown };
+} catch (error) {
+  console.error(`POST.json at ${source} is not readable JSON: ${(error as Error).message}`);
+  process.exit(1);
+}
+
+const postUrl = typeof post.url === 'string' ? post.url : '';
+if (!/^https:\/\/(x\.com|twitter\.com)\/[^/]+\/status\/\d+$/.test(postUrl)) {
+  console.error(`POST.json "url" is not an X post URL: ${JSON.stringify(post.url)}`);
+  process.exit(1);
+}
+
+// Publish atomically: copy to a temp file in the same directory, verify the
+// copied bytes match the source exactly, then rename into place. The gate
+// can therefore never observe a half-written or corrupted POST.json, and a
+// bad copy fails here instead of at grading time.
+const tempTarget = `${target}.tmp`;
+try {
+  copyFileSync(source, tempTarget);
+  const sourceBytes = readFileSync(source);
+  const copiedBytes = readFileSync(tempTarget);
+  if (!sourceBytes.equals(copiedBytes)) {
+    console.error(`Copy verification failed: ${tempTarget} differs from ${source}`);
+    process.exit(1);
+  }
+  renameSync(tempTarget, target);
 } catch (error) {
   console.error(`Could not copy POST.json from ${source}: ${(error as Error).message}`);
   process.exit(1);
 }
+
+const { size } = statSync(target);
+console.log(`Copied POST.json (${size} bytes) to ${target} — post: ${postUrl}`);
