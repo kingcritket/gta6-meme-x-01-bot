@@ -1,8 +1,9 @@
 // gta6-meme-x-01 entry (Node 22, standard library only).
 //
-// The entry is the X post itself: a GTA 6 meme picturing make.fun's ghost
-// mascot, posted from a public account with make.fun and the entrant's play
-// code in its text. This program does the one mechanical job the grader
+// The entry is the X post itself: the GTA 6 meme "Podium Kosong" — an
+// Olympic podium of shipped games with a lone "GTA VI" flag left on the
+// ground — posted from a public account. This program does the one
+// mechanical job the grader
 // needs — it copies POST.json, which names that post, from the repository
 // root to /output/POST.json, where the gate reads it. Nothing this program
 // writes is judged; the house reads the post straight from X.

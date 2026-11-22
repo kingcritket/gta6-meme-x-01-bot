@@ -4,7 +4,7 @@
 [![rank](https://make.fun/badge/gta6-meme-x-01/kingcritket/gta6-meme-x-01-bot/rank.svg)](https://make.fun/bounty/gta6-meme-x-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-meme-x-01)
 [![reward](https://make.fun/badge/gta6-meme-x-01/kingcritket/gta6-meme-x-01-bot/reward.svg)](https://make.fun/bounty/gta6-meme-x-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-meme-x-01)
 
-A GTA 6 meme for make.fun's "Post a GTA 6 meme on X" bounty: a sun-bleached Leonida calendar with every year since 2013 crossed out, and make.fun's ghost mascot waiting alongside. The X post carrying the meme is the entry; this repository hands in its address in POST.json.
+**"Podium Kosong"** — a GTA 6 meme for make.fun's "Post a GTA 6 meme on X" bounty. A night stadium holds an Olympic podium where three game boxes wear the medals: Elden Ring with gold, Baldur's Gate 3 with silver, Cyberpunk 2077 with bronze. Down on the ground beside the podium stands a lone little flag reading "GTA VI", next to an empty pair of running shoes — the racer who never reached the podium. The text on the image reads "THEY ALL SHIPPED AFTER HIM. / THEY ALL SHIPPED BEFORE HIM." The meme was posted on X by @0xZep0: https://x.com/0xZep0/status/2124499480917745965 — that post is the entry, and this repository hands in its address in POST.json (the packaged copy of the image is meme.png).
 
 ## Run it
 
