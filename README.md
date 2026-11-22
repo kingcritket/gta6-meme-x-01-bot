@@ -17,7 +17,7 @@ The text on the image reads:
 
 ## The post
 
-The entry itself is the X post by @0xZep0: https://x.com/0xZep0/status/2124499480917745965
+The entry itself is the X post by @0xZep0: https://x.com/0xZep0/status/2124505640718745921
 
 This repository is the post's supporting envelope. `POST.json` names the post, `meme.png` is the packaged copy of the image (1600×1600), and `main.ts` validates both files and publishes `POST.json` to the output directory the grader reads.
 
